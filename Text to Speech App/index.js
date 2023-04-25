@@ -10,8 +10,7 @@ voices();
 function voices() {
   for (let voice of synth.getVoices()) {
     let selected = voice.name === "Google US English" ? "selected" : "";
-    let option =
-      '<option value="${voice.name}" ${selected}>${voice.name} (${voice.lang})</option>';
+    let option = `<option value="${voice.name}" ${selected}>${voice.name} (${voice.lang})</option>`;
     voiceList.insertAdjacentHTML("beforeend", option);
   }
 }
@@ -25,8 +24,9 @@ function textToSpeech(text) {
       utterance.voice = voice;
     }
   }
-  synth.speak(utternace);
+  synth.speak(utterance);
 }
+
 speechBtn.addEventListener("click", (e) => {
   e.preventDefault();
   if (textarea.value !== "") {
@@ -34,7 +34,7 @@ speechBtn.addEventListener("click", (e) => {
     if (!synth.speaking) {
       textToSpeech(textarea.value);
     }
-    //If Text was too long, Add Resume and Pause function
+    // If text was long, Add Resume and Pause Function
     if (textarea.value.length > 80) {
       setInterval(() => {
         if (!synth.speaking && !isSpeaking) {
@@ -53,7 +53,7 @@ speechBtn.addEventListener("click", (e) => {
         speechBtn.innerText = "Resume Speech";
       }
     } else {
-      speechBtn.innerText = "Convert to Speech";
+      speechBtn.innerText = "Convert To Speech";
     }
   }
 });
